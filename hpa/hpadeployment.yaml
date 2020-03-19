@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hpa1
+  labels:
+    app: hpa-example
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: hpa1 
+  template:
+    metadata:
+      labels:
+        app: hpa1
+    spec:
+      containers:
+       - name: hpa1
+         image: wkandek/hpa-example:latest
+         imagePullPolicy: IfNotPresent
+         resources:
+           requests:
+             cpu: 500m
+      terminationGracePeriodSeconds: 0

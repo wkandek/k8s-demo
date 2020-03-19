@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lbapache
+  labels:
+    app: lbapache
+spec:
+  replicas: 2
+  strategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: lbapache
+  template:
+    metadata:
+      labels:
+        app: lbapache
+    spec:
+      containers:
+       - name: lbapache
+         image: wkandek/lbapache:latest
+         imagePullPolicy: Always

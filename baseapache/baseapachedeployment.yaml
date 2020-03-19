@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baseapache
+  labels:
+    app: baseapache
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: baseapache
+  template:
+    metadata:
+      labels:
+        app: baseapache
+    spec:
+      containers:
+       - name: baseapache
+         image: wkandek/baseapache:latest
+         imagePullPolicy: Always

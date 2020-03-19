@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hpa1service
+spec:
+  selector:
+    app: hpa1
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
