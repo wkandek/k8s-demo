@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookdb
+  labels:
+    app: bookdb-mysql
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: bookdb
+  template:
+    metadata:
+      labels:
+        app: bookdb
+    spec:
+      containers:
+       - name: bookdb
+         image: wkandek/bookdb:latest
+         imagePullPolicy: Always    
+         resources:
+           requests:
+             cpu: 200m
+      terminationGrace
