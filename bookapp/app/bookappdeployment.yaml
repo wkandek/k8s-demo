@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookapp
+  labels:
+    app: bookapp
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: bookapp
+  template:
+    metadata:
+      labels:
+        app: bookapp
+    spec:
+      containers:
+        - name: bookapp
+          image: wkandek/bookapp:latest
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: bookapp-configmap
+          env:
+            - name: BOOKDBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: bookdb-credentials
+                  key: db-username
+            - name: BOOKDBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: bookdb-credentials
+                  key: db-password
